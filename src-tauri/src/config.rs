@@ -18,6 +18,10 @@ struct ClientKey<'a> {
 /// `3.1.2` => `3.1`. The server rejects clients below its `requiredVersion`,
 /// so this comes from the real app version instead of a number we'd have to
 /// remember to bump by hand.
+///
+/// Heads up: because the server compares a decimal number, `3.10` arrives as
+/// `3.1` and looks *older* than `3.9`. Until the server compares versions
+/// properly, go from `3.9` straight to `4.0` instead of releasing `3.10`.
 pub fn client_version(major: u64, minor: u64) -> f32 {
     format!("{major}.{minor}")
         .parse()
